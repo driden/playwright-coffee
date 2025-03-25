@@ -5,7 +5,6 @@ export class MenuPage {
     private readonly coffeCups: Locator;
 
     constructor(private readonly page: Page) {
-        console.log("In MenuPage ctor");
         this.coffeCups = page.getByRole('listitem')
             .filter({ has: page.getByRole('heading', { level: 4 }) });
     }
@@ -19,7 +18,16 @@ export class MenuPage {
     // It's a good idea to have a method like this you can await when loading the page
     async visit() {
         await this.page.goto('/');
-        expect(this.coffeCups).toHaveCount(9);
+        const all = await this.coffeCups.all();
+        expect(all).toHaveLength(9);
+    }
+
+    async getCoffee(name: string) {
+        return CoffeeCup.of(
+            this.coffeCups.filter({
+                has: this.page.locator(`[data-test="${name}"]`)
+            })
+        );
     }
 }
 
