@@ -30,4 +30,19 @@ test.describe('Menu page', () => {
         const price: number = await capuccino.getPrice();
         expect(price).toBe(19.00);
     });
+
+    test('Hover over `Cafe Breve` and make sure it does the animation', async ({ page }) => {
+        const menuPage = new MenuPage(page);
+        await menuPage.visit();
+
+        const breve = await menuPage.getCoffee("Cafe_Breve");
+        await breve.hover();
+        await expect(breve.locator).toHaveScreenshot({
+            animations: "allow",
+            scale: "css",
+            omitBackground: false,
+            threshold: 0.3
+        });
+    });
+
 });

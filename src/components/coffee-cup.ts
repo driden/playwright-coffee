@@ -1,7 +1,7 @@
 import { Locator } from "@playwright/test";
 
 export class CoffeeCup {
-    constructor(private readonly locator: Locator) { }
+    constructor(readonly locator: Locator) { }
 
     static of(locator: Locator): CoffeeCup {
         return new CoffeeCup(locator);
@@ -26,5 +26,17 @@ export class CoffeeCup {
         const text = await small.innerText();
 
         return parseFloat(text.slice(1));
+    }
+
+    hover() {
+        return this.locator.locator("div.cup-body").hover();
+    }
+
+    screenshot(name: string) {
+        return this.locator.screenshot({ path: `res/${name}.png` });
+    }
+
+    scr() {
+        return this.locator.screenshot();
     }
 }

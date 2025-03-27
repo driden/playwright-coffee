@@ -1,6 +1,6 @@
 import { expect, Locator, type Page } from "@playwright/test"
 
-import { CoffeeCup } from "../components/coffee";
+import { CoffeeCup } from "../components/coffee-cup";
 export class MenuPage {
     private readonly coffeCups: Locator;
 
